@@ -1,0 +1,11 @@
+When updating data, consider below : 
+    All relevant post data must be updated
+        text
+        caption
+        type
+        modified
+
+Specialy, When updating post content, this can go 2 ways
+    don't let change post type (according to post type, modal should change)
+        when updating images, input:file must be include in the modal
+        but in message,URLs that feature is `disabled`
