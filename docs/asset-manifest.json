@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/unc-communicator/static/css/main.f1949433.css",
+    "main.js": "/unc-communicator/static/js/main.4579cbee.js",
+    "static/js/787.d0ff1144.chunk.js": "/unc-communicator/static/js/787.d0ff1144.chunk.js",
+    "index.html": "/unc-communicator/index.html",
+    "main.f1949433.css.map": "/unc-communicator/static/css/main.f1949433.css.map",
+    "main.4579cbee.js.map": "/unc-communicator/static/js/main.4579cbee.js.map",
+    "787.d0ff1144.chunk.js.map": "/unc-communicator/static/js/787.d0ff1144.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f1949433.css",
+    "static/js/main.4579cbee.js"
+  ]
+}
