@@ -4,7 +4,7 @@ import Settings from "../dash-components/Settings";
 import React,{ useState, useEffect } from "react";
 import logo from './../logo.jpg';
 
-export default function Dashboard() {
+export default function Dashboard({changeActivePage}) {
   // toggle between elements
   const [activeComponent, setActiveComponent] = useState('postings');
   const [menuOpen, setMenuStatus] = useState(true);
@@ -13,12 +13,18 @@ export default function Dashboard() {
     setActiveComponent(component);
   };
 
+  const handleLinkClick = (page) => {
+    //console.log('Clicked page:', page);
+    sessionStorage.removeItem('userID');
+    changeActivePage(page);
+  }
+
   // navigate (for logging out)
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const logout = () => {
-    sessionStorage.removeItem('userID');
-    navigate('/login');
+    
+    //navigate('/login');
   };
 
   // useEffect for Menu Status
@@ -65,7 +71,7 @@ export default function Dashboard() {
 
   function LogoutButton() {
     return (
-      <button onClick={logout} className="btn btn-side-panel">
+      <button onClick={() => handleLinkClick('home')} className="btn btn-side-panel">
         <i className="bi bi-box-arrow-left"></i>
         Logout
       </button>

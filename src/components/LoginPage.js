@@ -2,12 +2,17 @@
 import React,{ useState } from "react";
 import axios from "axios";
 
-export default function LoginPage(){
+export default function LoginPage({changeActivePage}){
     const [inputs, setInputs] = useState({
         username: '',
         password: '',
     });
     
+    const handleLinkClick = (page) => {
+        //console.log('Clicked page:', page);
+        changeActivePage(page);
+    }
+      
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInputs((prevInputs) => ({
@@ -23,7 +28,8 @@ export default function LoginPage(){
             if (response.data[0] && response.data[0]['userID'] !== undefined) {
                 sessionStorage.setItem('userID',response.data[0]['userID']); // set userID session var
                 //alert(sessionStorage.getItem('userID'));
-                window.location.href='/login/' + sessionStorage.getItem('userID');
+                //window.location.href='/login/' + sessionStorage.getItem('userID');
+                handleLinkClick('dash/' + sessionStorage.getItem('userID'))
             } else { // error handling
                 console.error('Invalid or missing user data in the response:', response.data);
             }})

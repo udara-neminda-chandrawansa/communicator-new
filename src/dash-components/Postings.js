@@ -63,11 +63,6 @@ function Postings() {
       });
   };
 
-  function scrollToBottom(){ // scroll fun
-    var scroller = document.getElementById('scroller');
-    scroller.scrollTop = scroller.scrollHeight;
-  }
-
   function appendPost(messageData){
     //console.log(messageData); // post type, post text, caption, current time, current time, realPostID
     const NextPostID = posts[posts.length - 1]["id"] + 1;
