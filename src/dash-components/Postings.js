@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 function Postings() {
-  
+
   /*useState vars*/
   const [allPosts, setAllPosts] = useState([]); // unfiltered posts
   const [posts, setPosts] = useState([]);
