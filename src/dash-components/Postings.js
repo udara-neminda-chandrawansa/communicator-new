@@ -263,7 +263,7 @@ function Postings() {
       <textarea name="message-box" id="message-box" value={textField} onChange={handleTextChange} className="form-control form-control-sm rounded-3" placeholder='Caption | Message Content'/>
       <AddPostButton />
     </span>
-    {isModalOpen ? ( // Post Modal
+    {isModalOpen ? ( // Post Modal--
       <div className="post-modal rounded-4 shadow">
         <div className="post-modal-content">
           <span className='w-100 d-flex justify-content-between align-items-center'>
