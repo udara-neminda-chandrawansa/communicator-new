@@ -29,7 +29,7 @@ export default function LoginPage({changeActivePage}){
                 sessionStorage.setItem('userID',response.data[0]['userID']); // set userID session var
                 //alert(sessionStorage.getItem('userID'));
                 //window.location.href='/login/' + sessionStorage.getItem('userID');
-                handleLinkClick('dash/' + sessionStorage.getItem('userID'))
+                handleLinkClick('dash/' + sessionStorage.getItem('userID'));
             } else { // error handling
                 console.error('Invalid or missing user data in the response:', response.data);
             }})
