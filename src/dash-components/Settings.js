@@ -19,7 +19,7 @@ function Settings(){
   const updateProfile = () => {
     if(username !== "" && password !== ""){
       let input = [username , password , sessionStorage.getItem('userID')];
-      axios.post('http://localhost/react-apis/unc-communicator/user-manager/',input)
+      axios.post('http://edgewise.kesug.com/react-apis/unc-communicator/user-manager/',input)
       .then(function (response) {
         console.log(response.data);
         alert(response.data["message"]);

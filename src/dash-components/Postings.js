@@ -50,16 +50,16 @@ function Postings() {
   /*Post Functions*/
 
   const loadPosts = () => { // load post fun
-    axios.get('http://localhost/react-apis/unc-communicator/post-manager/')
+    axios.get('http://edgewise.kesug.com/react-apis/unc-communicator/post-manager/')
       .then(function (response) {
-        //console.log(response.data);
+        console.log(response.data);
         const postsWithId = response.data.map((post, index) => ({ ...post, id: index }));
-        //console.log(postsWithId[2]);
+        console.log(postsWithId[2]);
         setAllPosts(postsWithId);
         setPosts(postsWithId);
       })
       .catch(function (error) {
-        console.error('Error during post API request:', error);alert("Error Occured, Page Refresh Required");window.location.reload();
+        console.error('Error during post API request:', error);alert("Error Occured, Page Refresh Required!!");//window.location.reload();
       });
   };
 
@@ -67,7 +67,7 @@ function Postings() {
     //console.log(messageData); // post type, post text, caption, current time, current time, realPostID
     const NextPostID = posts[posts.length - 1]["id"] + 1;
     //console.log(NextPostID);
-    let type = messageData[0] == "image" ? "image" : "post";
+    let type = messageData[0] === "image" ? "image" : "post";
     setPosts([...posts, {id:NextPostID,caption:messageData[2],content:messageData[1],created:messageData[3],modified:messageData[4],postType:messageData[0],realPostID:messageData[5],type:type}]);
   }
 
@@ -79,7 +79,7 @@ function Postings() {
           const messageCaption = messageText.split('|')[0].trim();
           const messageText2 = messageText.split('|')[1].trim();
           input = [messageType,messageText2,messageCaption,currentTime,currentTime];
-          axios.post('http://localhost/react-apis/unc-communicator/post-manager/',input)
+          axios.post('http://edgewise.kesug.com/react-apis/unc-communicator/post-manager/',input)
           .then(function (response) {
             console.log(response.data);
             let realPostID = response.data["realPostID"][0]["postID"];
@@ -100,12 +100,12 @@ function Postings() {
       case "URL": // URL Message
         if(messageText.length < 11000 && messageText.length > 0){
           // Get Site Title API
-          axios.post('http://localhost/react-apis/url-title-api/?url=' + messageText)
+          axios.post('http://edgewise.kesug.com/react-apis/url-title-api/?url=' + messageText)
           .then(function (response) {
             //console.log(response.data["title"]);
             // INSERT Rec API
             input = [messageType,messageText,response.data["title"],currentTime,currentTime];
-            axios.post('http://localhost/react-apis/unc-communicator/post-manager/',input)
+            axios.post('http://edgewise.kesug.com/react-apis/unc-communicator/post-manager/',input)
             .then(function (response) {
               console.log(response.data);
               let realPostID = response.data["realPostID"][0]["postID"];
@@ -128,6 +128,8 @@ function Postings() {
           alert("Invalid Input!");
         }
         break;
+      default:
+        break;
     }    
   }
 
@@ -138,9 +140,9 @@ function Postings() {
       setPosts(posts.filter(post => post.id !== postID));
 
       let input = [realPostID];
-      if(postType != "image"){// find post type
+      if(postType !== "image"){// find post type
         // call delete api for post
-        axios.put('http://localhost/react-apis/unc-communicator/post-manager/',input)
+        axios.put('http://edgewise.kesug.com/react-apis/unc-communicator/post-manager/',input)
         .then(function (response) {
           console.log(response.data); // success
         })
@@ -149,7 +151,7 @@ function Postings() {
         });
       }else{
         // call delete api for img
-        axios.put('http://localhost/react-apis/unc-communicator/img-manager/',input)
+        axios.put('http://edgewise.kesug.com/react-apis/unc-communicator/img-manager/',input)
         .then(function (response) {
           console.log(response.data);
         })
@@ -177,6 +179,8 @@ function Postings() {
       case "image":
         setPosts(allPosts.filter(post => post.postType === "image"));
         break;
+      default:
+        break;
     }
     //scrollToBottom();
   }
@@ -198,7 +202,7 @@ function Postings() {
       imgFile.append('Image_Modified', currentTime);
     }
     // Upload image data using axios
-    axios.post('http://localhost/react-apis/unc-communicator/img-manager/',imgFile)
+    axios.post('http://edgewise.kesug.com/react-apis/unc-communicator/img-manager/',imgFile)
     .then(function (response) {
       console.log(response.data);
       appendPost(["image",response.data["url"],response.data["caption"],response.data["time"],response.data["time"],response.data["realPostID"]]); // add attributes
@@ -242,10 +246,10 @@ function Postings() {
             <span className='w-100 d-flex justify-content-end'>
               <PostControlButton postID={post.id} postType={post.postType} onDelete={deletePost} realPostID={post.realPostID} postInfo={post}/>
             </span>
-            {post.postType == 'image' ? 
-            <img src={'http://localhost/react-apis/unc-communicator/img-manager/' + post.content} alt={post.content} className='post-img'/>
+            {post.postType === 'image' ? 
+            <img src={'http://edgewise.kesug.com/react-apis/unc-communicator/img-manager/' + post.content} alt={post.content} className='post-img'/>
             : 
-            <p style={{overflow:'hidden',textOverflow:'ellipsis'}}>{ post.postType == 'URL' ? ( <a href={post.content} className='post-text-url' role='p'>{post.content}</a> ) : post.content}</p>
+            <p style={{overflow:'hidden',textOverflow:'ellipsis'}}>{ post.postType === 'URL' ? ( <a href={post.content} className='post-text-url' >{post.content}</a> ) : post.content}</p>
             }
             <div className="collapse" id={"collapse" + post.id} style={{marginTop:'10px',width:'fit-content',cursor:'pointer'}} data-bs-toggle="collapse" data-bs-target={"#collapse" + post.id}>
               <div className="card card-body p-1">
@@ -317,9 +321,9 @@ function Postings() {
           <i className="bi bi-three-dots"></i>
         </button>
         <ul className="dropdown-menu">
-          <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#updatePostModal" onClick={()=>sendUpModalData(realPostID, postInfo)}>Edit</a></li>
-          <li><a className="dropdown-item" href="#" onClick={() => onDelete(postID,realPostID,postType)}>Delete</a></li>
-          <li><a className="dropdown-item" href="#" data-bs-toggle="collapse" data-bs-target={"#collapse" + postID} aria-expanded="false" aria-controls="collapseExample">Info</a></li>
+          <li><p className="dropdown-item" data-bs-toggle="modal" data-bs-target="#updatePostModal" onClick={()=>sendUpModalData(realPostID, postInfo)}>Edit</p></li>
+          <li><p className="dropdown-item" onClick={() => onDelete(postID,realPostID,postType)}>Delete</p></li>
+          <li><p className="dropdown-item" data-bs-toggle="collapse" data-bs-target={"#collapse" + postID} aria-expanded="false" aria-controls="collapseExample">Info</p></li>
         </ul>
       </div>
     );
@@ -331,11 +335,11 @@ function Postings() {
         <button className="btn glass-container" style={{width:'fit-content',color:'white',height:'100%'}}  data-bs-toggle="dropdown" aria-expanded="false">
           <i className="bi bi-filter"></i>
         </button>
-        <ul className="dropdown-menu">
-          <li><a className="dropdown-item" href="#" onClick={() => filterMessages('All')}>All Messages</a></li>
-          <li><a className="dropdown-item" href="#" onClick={() => filterMessages('Text')}>Text Messages</a></li>
-          <li><a className="dropdown-item" href="#" onClick={() => filterMessages('URL')}>URL Messages</a></li>
-          <li><a className="dropdown-item" href="#" onClick={() => filterMessages('image')}>Images</a></li>
+        <ul className="dropdown-menu gap-0 m-0">
+          <li><p className="dropdown-item p-2 m-0" onClick={() => filterMessages('All')}>All Messages</p></li>
+          <li><p className="dropdown-item p-2 m-0" onClick={() => filterMessages('Text')}>Text Messages</p></li>
+          <li><p className="dropdown-item p-2 m-0" onClick={() => filterMessages('URL')}>URL Messages</p></li>
+          <li><p className="dropdown-item p-2 m-0" onClick={() => filterMessages('image')}>Images</p></li>
         </ul>
       </div>
     );

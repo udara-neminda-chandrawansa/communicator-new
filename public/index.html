@@ -79,7 +79,7 @@
       switch (document.getElementById('up_post_type').value) {
         case "message":
           if (caption.value !== "" && content.value !== "") {
-            $.post("http://localhost/react-apis/unc-communicator/post-updater/", {
+            $.post("http://edgewise.kesug.com/react-apis/unc-communicator/post-updater/", {
               postType: "message",
               postID: document.getElementById('up_id').value,
               postText: document.getElementById('up_content').value,
@@ -91,7 +91,7 @@
 
         case "URL":
           if (caption.value !== "" && content.value !== "") {
-            $.post("http://localhost/react-apis/unc-communicator/post-updater/", {
+            $.post("http://edgewise.kesug.com/react-apis/unc-communicator/post-updater/", {
               postType: "URL",
               postID: document.getElementById('up_id').value,
               postText: document.getElementById('up_content').value,
@@ -112,7 +112,7 @@
             formData.append('Image_Modified', new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
 
             $.ajax({
-              url: "http://localhost/react-apis/unc-communicator/img-manager/",
+              url: "http://edgewise.kesug.com/react-apis/unc-communicator/img-manager/",
               type: "POST",
               data: formData,
               contentType: false,

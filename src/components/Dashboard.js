@@ -1,4 +1,3 @@
-import { useNavigate} from 'react-router-dom';
 import Postings from "../dash-components/Postings";
 import Settings from "../dash-components/Settings";
 import React,{ useState, useEffect } from "react";
@@ -21,11 +20,6 @@ export default function Dashboard({changeActivePage}) {
 
   // navigate (for logging out)
   //const navigate = useNavigate();
-
-  const logout = () => {
-    
-    //navigate('/login');
-  };
 
   // useEffect for Menu Status
   useEffect (() => {

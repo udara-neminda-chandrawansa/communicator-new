@@ -9,7 +9,6 @@ export default function LoginPage({changeActivePage}){
     });
     
     const handleLinkClick = (page) => {
-        //console.log('Clicked page:', page);
         changeActivePage(page);
     }
       
@@ -23,7 +22,7 @@ export default function LoginPage({changeActivePage}){
     
     const login = () => {
         if (Object.values(inputs).every((input) => input !== '')) {
-          axios.post('http://localhost/react-apis/unc-communicator/login-api/', inputs).then(function (response) {
+          axios.post('http://edgewise.kesug.com/react-apis/unc-communicator/login-api/', inputs).then(function (response) {
             // Check if response.data[0] is defined and has 'userID'
             if (response.data[0] && response.data[0]['userID'] !== undefined) {
                 sessionStorage.setItem('userID',response.data[0]['userID']); // set userID session var

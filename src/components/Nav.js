@@ -1,7 +1,7 @@
 import logo from "./../logo.jpg"
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-function Nav({changeActivePage}) {
+export default function Nav({changeActivePage}) {
   //const [loginLink, setLoginLink] = useState("login");
   //const [userID, setUserID] = useState('');
 
@@ -55,4 +55,3 @@ function Nav({changeActivePage}) {
     </>
   );
 }
-export default Nav;
